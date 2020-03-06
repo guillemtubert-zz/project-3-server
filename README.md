@@ -23,6 +23,7 @@ This is an app to create groups with the people who wants to meet and don't want
 ## Backlog
 
 Chat:
+
 - Chat with the other users that are in the same group as I am
 - Geolocation
 
@@ -34,19 +35,20 @@ Chat:
 # Client / Frontend
 
 ## React Router Routes (React App)
-| Path                      | Component            | Permissions | Behavior                                                     |
-| ------------------------- | -------------------- | ----------- | ------------------------------------------------------------ |
-| `/`                       | SplashPage           | public `<Route>`      | Home page, redirect to login page                |
-| `/signup`            | SignupPage           | anon only  `<AnonRoute>`   | Signup form, link to login, navigate to homepage after signup |
-| `/login`             | LoginPage            | anon only `<AnonRoute>`  | Login form, link to signup, navigate to homepage after login |
-| `/logout`            | n/a                  | User only `<PrivateRoute>` | Navigate to login/homepage after logout, expire session |
-| `/Profile` | ProfilePage | User only `<PrivateRoute>`  |Navigate between create a group, join a group and my groups|
-| `/create` | CreateGroup | user only `<PrivateRoute>`  | Create a group                                               |
-| `/groups`  | GroupsPage | user only `<PrivateRoute>`  | List of all the groups displayed                             |
-| `/group/:id`     | n/a                   | user only `<PrivateRoute>`  | Delete group                                        |
-| `/group/:id` | GroupPage | user only  `<PrivateRoute>` | List of the people in the group, chat and invite link        |
-| /join/:id | JoinGroup(id) | user only  `<PrivateRoute>` | Enter a group with that id |
-| `/join` | JoinGroup | user only  `<PrivateRoute>` | Go to /Join/:id |
+
+| Path         | Component     | Permissions                 | Behavior                                                     |
+| ------------ | ------------- | --------------------------- | ------------------------------------------------------------ |
+| `/`          | SplashPage    | public `<Route>`            | Home page, redirect to login page                            |
+| `/signup`    | SignupPage    | anon only  `<AnonRoute>`    | Signup form, link to login, navigate to homepage after signup |
+| `/login`     | LoginPage     | anon only `<AnonRoute>`     | Login form, link to signup, navigate to homepage after login |
+| `/logout`    | n/a           | User only `<PrivateRoute>`  | Navigate to login/homepage after logout, expire session      |
+| `/Profile`   | ProfilePage   | User only `<PrivateRoute>`  | Navigate between create a group, join a group and my groups  |
+| `/create`    | CreateGroup   | user only `<PrivateRoute>`  | Create a group                                               |
+| `/groups`    | GroupsPage    | user only `<PrivateRoute>`  | List of all the groups displayed                             |
+| `/group/:id` | n/a           | user only `<PrivateRoute>`  | Delete group                                                 |
+| `/group/:id` | GroupPage     | user only  `<PrivateRoute>` | List of the people in the group, chat and invite link        |
+| /join/:id    | JoinGroup(id) | user only  `<PrivateRoute>` | Enter a group with that id                                   |
+| `/join`      | JoinGroup     | user only  `<PrivateRoute>` | Go to /Join/:id                                              |
 
 
 ## Components
@@ -77,12 +79,11 @@ Chat:
   - Group.Delete
   - Group.Leave
   - Group.AddUser
-  
+
 - Use Service 
 
   - User.MyGroups
   - User.JoinGroup(:id)
-  
 
 <br>
 
@@ -134,18 +135,18 @@ Chat model
 
 ## API Endpoints (backend routes)
 
-| HTTP Method | URL                         | Request Body                 | Success status | Error Status | Description                                                  |
-| ----------- | --------------------------- | ---------------------------- | -------------- | ------------ | ------------------------------------------------------------ |
-| GET         | `/auth/profile    `           | Saved session                | 200            | 404          | Check if user is logged in and return home page        |
-| POST        | `/auth/signup`                | {name, password}      | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
-| POST        | `/auth/login`                 | {username, password}         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session |
-| POST        | `/auth/logout`                | (empty)                      | 204            | 400          | Logs out the user                                            |
-| GET         | `/groups` |                              |                | 400          |                                                              |
-| GET         | `/groups/:id`       | {id},Title, participants, description, max cap and time limit |                |              | Show specific group. |
-| POST        | `/groups/create` | {name,users, description, max cap, time limit} | 201            | 400          | Create and save a new group                         |
-| PUT         | `/groups/edit/:id` | {name,users, description, max cap, time limit} | 200            | 400          | edit group                                          |
-| DELETE      | `/groups/delete/:id` | {id}                         | 201            | 400          | delete group                                        |
-| PUT      | `/add/users_id/_group_id` | {user_id, group_id} |                |           |                                                              |
+| HTTP Method | URL                       | Request Body                                                 | Success status | Error Status | Description                                                  |
+| ----------- | ------------------------- | ------------------------------------------------------------ | -------------- | ------------ | ------------------------------------------------------------ |
+| GET         | `/auth/profile    `       | Saved session                                                | 200            | 404          | Check if user is logged in and return home page              |
+| POST        | `/auth/signup`            | {name, password}                                             | 201            | 404          | Checks if fields not empty (422) and user not exists (409), then create user with encrypted password, and store user in session |
+| POST        | `/auth/login`             | {username, password}                                         | 200            | 401          | Checks if fields not empty (422), if user exists (404), and if password matches (404), then stores user in session |
+| POST        | `/auth/logout`            | (empty)                                                      | 204            | 400          | Logs out the user                                            |
+| GET         | `/groups`                 |                                                              |                | 400          |                                                              |
+| GET         | `/groups/:id`             | {id},Title, participants, description, max cap and time limit |                |              | Show specific group.                                         |
+| POST        | `/groups/create`          | {name,users, description, max cap, time limit}               | 201            | 400          | Create and save a new group                                  |
+| PUT         | `/groups/edit/:id`        | {name,users, description, max cap, time limit}               | 200            | 400          | edit group                                                   |
+| DELETE      | `/groups/delete/:id`      | {id}                                                         | 201            | 400          | delete group                                                 |
+| PUT         | `/add/users_id/_group_id` | {user_id, group_id}                                          |                |              |                                                              |
 
 
 <br>
@@ -163,7 +164,7 @@ The url to your repository and to your deployed project
 
 [Client repository Link](https://github.com/guillemtubert/project3-im-in)
 
-[Server repository Link](https://github.com/screeeen/project-server) TBD
+[Server repository Link](https://github.com/guillemtubert/project-3-server)
 
 [Deployed App Link](http://heroku.com) tbd
 
@@ -172,3 +173,5 @@ The url to your repository and to your deployed project
 The url to your presentation slides
 
 [Slides Link](https://docs.google.com/presentation/d/17yvSXmm0FoUZZ1iBAVtst0ZhFaA5WU5Ufwm87lc7zJw/edit?usp=sharing)
+
+https://docs.google.com/presentation/d/17yvSXmm0FoUZZ1iBAVtst0ZhFaA5WU5Ufwm87lc7zJw/edit?usp=sharing)

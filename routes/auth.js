@@ -50,6 +50,8 @@ router.post('/login', isNotLoggedIn, validationLogin, async (req, res, next) => 
       
       user.password = '*';
       req.session.currentUser = user;
+      console.log(req.session.currentUser);
+      
       res
         .status(200)
         .json(user);

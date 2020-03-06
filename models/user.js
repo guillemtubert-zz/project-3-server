@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   username: String,
   password: String,
+  groups:[{type: Schema.Types.ObjectId, ref: "Group"}]
 }, {
   timestamps: {
     createdAt: 'created_at',
