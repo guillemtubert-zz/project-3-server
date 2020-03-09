@@ -39,19 +39,39 @@ groupsRouter.put('/join', isLoggedIn, async(req,res, next) =>{
         const updatedGroup = await Group.findByIdAndUpdate(groupid, {$push: {participants: userId}}, {new:true})
         res.status(201)
         .json({updatedGroup,updatedUser} )
-
-
     }
     catch (error) {
         next(createError(error));
       }
 });
 
+groupsRouter.put('/leave/:groupid', isLoggedIn, async(req,res,next) => {
+    const userId = req.session.currentUser._id;
+    const {groupid} = req.params;
+
+    console.log("GROUP ID", groupid);
+    console.log("USER ID", userId);
+    
+    
+
+    try{
+        const updatedUser = await User.findByIdAndUpdate(userId, {$pull: 
+        {groups: groupid}}, {new:true})
+
+        const updatedGroup = await Group.findByIdAndUpdate(groupid, {$pull: {participants: userId}}, {new:true})
+        res.status(201)
+        .json({updatedGroup,updatedUser} )
+    }
+    catch (error) {
+        next(createError(error));
+      }
+})
+
 groupsRouter.get('/:id', isLoggedIn, async(req,res,next)=> {
      const {id} = req.params;
 
      try{
-     const groupInfo = await Group.findById(id)
+     const groupInfo =  await Group.findById(id).populate("participants")
      res.status(200)
      .json(groupInfo);
     }
@@ -72,8 +92,20 @@ groupsRouter.get('/', isLoggedIn, async(req,res,next)=>{
     catch (error) {
         next(createError(error))
     }
+})
 
+groupsRouter.delete('/delete/:groupid', isLoggedIn, async(req,res,next) => {
+    const {groupid} = req.params;    
 
+    try{
+
+         await Group.findByIdAndDelete(groupid)
+        res.status(201)
+        .json({success: true, msg: 'User deleted.'})
+    }
+    catch (error) {
+        next(createError(error));
+      }
 })
 
 
