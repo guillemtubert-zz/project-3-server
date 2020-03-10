@@ -7,6 +7,7 @@ const groupSchema = new Schema({
   participants: [{type: Schema.Types.ObjectId, ref: "User"}],
   duration: {type: Number, required: true},
   maxParticipants: {type: Number, required: true},
+  creator:{}
   // chat: []
 }, {
   timestamps: {

@@ -10,12 +10,12 @@ const {
 
 groupsRouter.post('/create', isLoggedIn, async (req,res,next) =>{
     console.log(req.session.currentUser);
-        const {name, description, duration, maxParticipants} = req.body;
+        const {name, description, duration, maxParticipants, creator} = req.body;
         const userId = req.session.currentUser._id;
         console.log(req.body);
         
     try{
-       const newGroup = await Group.create({name, description, duration, maxParticipants, participants:[userId]});
+       const newGroup = await Group.create({name, description, duration, maxParticipants, participants:[userId], creator:[userId]});
        
        await User.findByIdAndUpdate(userId, {$push: {groups: newGroup._id}}, {new:true}) 
 
